@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+###################################################################
+#  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  ⊗  #
+###################################################################
+
+
+###################################################################
+# This design file stores the values of all variables required to
+# execute a complete neuroimage processing pipeline. You may
+# execute the analysis specified in this design file by calling
+# (in any v4 or higher bash terminal):
+#
+# xcpEngine -d <design> -c <cohort> -o <output> <options>
+#
+# Variables fall into five general categories:
+# * ANALYSIS VARIABLES are used at all stages of this analysis.
+# * PIPELINE specifies the modules that comprise the analysis.
+# * MODULE VARIABLES are used during one stage of the analysis.
+#                  These are typically array variables with array
+#                  indices equal to the index of the module that
+#                  calls them.
+# * OUTPUT VARIABLES may be used at all stages of the analysis.
+#                  These are typically array variables with array
+#                  indices equal to the value of the primary
+#                  subject identifier. They will appear only in
+#                  localised design files.
+###################################################################
+
+
+###################################################################
+# ANALYSIS VARIABLES
+###################################################################
+
+analysis=fc_$(whoami)
+design=/Volumes/schnyer/R33ABM/XCP/fc-6p_scrub.dsn
+standard=MNI%2x2x2
+sequence=anatomical
+
+###################################################################
+# PIPELINE
+###################################################################
+
+pipeline=prestats,confound2,fcon
+
+###################################################################
+# 1 PRESTATS
+###################################################################
+
+prestats_rerun[1]=1
+prestats_cleanup[1]=1
+prestats_process[1]=FMP
+
+###################################################################
+# 2 CONFOUND2
+###################################################################
+
+confound2_rps[2]=1
+confound2_rms[2]=0
+confound2_wm[2]=1
+confound2_csf[2]=1
+confound2_gsr[2]=1 #this is actually scrubbing!!!! NOT gsr
+confound2_acompcor[2]=0
+confound2_tcompcor[2]=0
+confound2_aroma[2]=0
+confound2_past[2]=0
+confound2_dx[2]=0
+confound2_sq[2]=0
+confound2_custom[2]=
+confound2_censor[2]=0
+confound2_censor_contig[2]=0
+confound2_framewise[2]=
+confound2_rerun[2]=1
+confound2_cleanup[2]=1
+
+
+###################################################################
+# 4 FCON
+###################################################################
+#does this output r values or z scores? normalize or no?
+
+fcon_atlas[4]=schaefer400
+fcon_metric[4]=corrcoef
+fcon_thr[4]=N #can take out in matlab later on
+fcon_rerun[4]=1
+fcon_cleanup[4]=1
