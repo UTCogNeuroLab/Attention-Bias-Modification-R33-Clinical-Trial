@@ -16,4 +16,4 @@ Run BIDS ap fMRIprep
 XCP engine was used to regress out motion confounds and scrub TRs with more than 0.25mm framewise discplacement, and create functional connectivity matrices (correlation) AAL, Glasser, Gordon, Harvord Oxford, Power, Schaefer altases. 
 task approx 30 mines per subject (3 sessions) on TACC. 
 
-xcp.dms is the design file used for XCP engine
+xcp.dms is the job file for using XCP engine on TACC,  the actual design file is fc-6p_scrub.dsn
