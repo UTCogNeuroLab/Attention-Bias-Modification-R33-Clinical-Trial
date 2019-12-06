@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH -J fmriprep_r33_11665    # Job name
+#SBATCH -o fmr_11665_KLR_o       # Name of stdout output file
+#SBATCH -e fmr_11665_KLR_e       # Name of stderr error file
+#SBATCH -p normal      # Queue (partition) name
+#SBATCH -N 1               # Total # of nodes (must be 1 for serial)
+#SBATCH -n 32               # Total # of mpi tasks (should be 1 for serial)
+#SBATCH -t 32:00:00        # Run time (hh:mm:ss)
+#SBATCH --mail-user=kimray@utexas.edu
+#SBATCH --mail-type=all    # Send email at begin and end of job
+#SBATCH -A Machine-learning-app       # Allocation name (req'd if you have more than 1)
+module load tacc-singularity
+singularity run --cleanenv /work/06089/mcm5324/stampede2/singularity/fmriprep-latest.simg     /scratch/05231/klray/R33/BIDS /scratch/05231/klray/     participant     --nthreads 32 --omp-nthreads 32  --mem_mb 32000     --ignore slicetiming     --fs-no-reconall     --fs-license-file /work/04171/dpisner/stampede2/freesurfer/license.txt     -w /scratch/05231/klray/R33/     --participant-label 11665
